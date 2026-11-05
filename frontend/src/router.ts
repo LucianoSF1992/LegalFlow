@@ -1,0 +1,5 @@
+import {createRouter,createWebHistory} from 'vue-router';import {useAuthStore} from './stores/auth';
+import LoginView from './views/LoginView.vue';import DashboardView from './views/DashboardView.vue';import ClientsView from './views/ClientsView.vue';import CasesView from './views/CasesView.vue';import TasksView from './views/TasksView.vue';import DocumentsView from './views/DocumentsView.vue';
+const router=createRouter({history:createWebHistory(),routes:[{path:'/login',component:LoginView},{path:'/',component:DashboardView,meta:{auth:true}},{path:'/clients',component:ClientsView,meta:{auth:true}},{path:'/cases',component:CasesView,meta:{auth:true}},{path:'/tasks',component:TasksView,meta:{auth:true}},{path:'/documents',component:DocumentsView,meta:{auth:true}}]});
+router.beforeEach(async to=>{const auth=useAuthStore();if(auth.token&&!auth.user)await auth.loadUser();if(to.meta.auth&&!auth.isAuthenticated)return '/login';if(to.path==='/login'&&auth.isAuthenticated)return '/';});
+export default router;

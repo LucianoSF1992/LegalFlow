@@ -1,0 +1,15 @@
+# Do not send local secrets, dependencies, or generated files to the Docker build.
+.env
+.env.*
+!.env.example
+vendor/
+node_modules/
+dist/
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/app/private/*
+storage/app/public/*
+.phpunit.result.cache
+.git/

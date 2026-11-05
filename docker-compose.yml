@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: legalflow-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: legalflow
+      MYSQL_USER: legalflow
+      MYSQL_PASSWORD: legalflow_local_only
+      MYSQL_ROOT_PASSWORD: root_local_only
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - legalflow_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot_local_only"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  legalflow_mysql:

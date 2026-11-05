@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: legalflow-app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - legalflow_storage:/var/www/legalflow/backend/storage/app/private
+    networks:
+      - legalflow_internal
+
+  db:
+    image: mysql:8.4
+    container_name: legalflow-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:?DB_DATABASE is required}
+      MYSQL_USER: ${DB_USERNAME:?DB_USERNAME is required}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD is required}
+    volumes:
+      - legalflow_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    networks:
+      - legalflow_internal
+
+volumes:
+  legalflow_db:
+  legalflow_storage:
+
+networks:
+  legalflow_internal:
+    driver: bridge

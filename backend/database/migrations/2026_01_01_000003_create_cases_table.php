@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration;use Illuminate\Database\Schema\Blueprint;use Illuminate\Support\Facades\Schema;
+return new class extends Migration {public function up():void{Schema::create('cases',function(Blueprint $t){$t->id();$t->foreignId('user_id')->constrained()->cascadeOnDelete();$t->foreignId('client_id')->constrained()->cascadeOnDelete();$t->string('case_number',80);$t->string('title');$t->string('court',120)->nullable();$t->string('legal_area',80);$t->string('status',20)->default('active');$t->text('description')->nullable();$t->date('opened_at')->nullable();$t->timestamps();$t->index(['user_id','status']);});}public function down():void{Schema::dropIfExists('cases');}};

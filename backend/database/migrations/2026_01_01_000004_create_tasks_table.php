@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration;use Illuminate\Database\Schema\Blueprint;use Illuminate\Support\Facades\Schema;
+return new class extends Migration {public function up():void{Schema::create('tasks',function(Blueprint $t){$t->id();$t->foreignId('user_id')->constrained()->cascadeOnDelete();$t->foreignId('case_id')->nullable()->constrained('cases')->nullOnDelete();$t->string('title');$t->text('description')->nullable();$t->string('priority',20)->default('medium');$t->string('status',20)->default('pending');$t->date('due_date')->nullable();$t->timestamps();$t->index(['user_id','status','due_date']);});}public function down():void{Schema::dropIfExists('tasks');}};

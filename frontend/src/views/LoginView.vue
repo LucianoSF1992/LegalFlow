@@ -1,0 +1,6 @@
+<script setup lang="ts">
+import {ref} from 'vue';import {useRouter} from 'vue-router';import {useAuthStore} from '../stores/auth';
+const email=ref('demo@legalflow.local'),password=ref('Demo@12345'),error=ref(''),loading=ref(false),router=useRouter(),auth=useAuthStore();
+async function submit(){loading.value=true;error.value='';try{await auth.login(email.value,password.value);router.push('/')}catch{error.value='Não foi possível entrar. Confira e-mail e senha.'}finally{loading.value=false}}
+</script>
+<template><section class="login-wrap"><div class="login-card"><div class="brand centered"><span class="brand-mark">L</span><div><b>LegalFlow</b><small>GESTÃO JURÍDICA</small></div></div><p class="eyebrow">BEM-VINDO DE VOLTA</p><h1>Acesse seu workspace</h1><p class="muted">Organize clientes, processos e prazos em um só lugar.</p><form @submit.prevent="submit"><label>E-mail<input v-model="email" type="email" required autocomplete="username"/></label><label>Senha<input v-model="password" type="password" required autocomplete="current-password"/></label><p v-if="error" class="error">{{error}}</p><button class="primary full" :disabled="loading">{{loading?'Entrando...':'Entrar no sistema'}}</button></form><p class="demo-hint">Demonstração local: demo@legalflow.local / Demo@12345</p></div></section></template>
