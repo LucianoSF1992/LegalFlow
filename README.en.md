@@ -5,7 +5,7 @@ project. LegalFlow combines a Laravel REST API with a Vue 3 single-page
 application to showcase common workflows for managing clients, legal
 cases, tasks, and documents.
 
-**Live demo:** https://legalflow.lucianoferreiradev.com\
+**Live demo:** https://legalflow.lucianoferreiradev.com
 **Repository:** https://github.com/LucianoSF1992/LegalFlow
 
 > **Demo project:** use fictional data only. This application must not

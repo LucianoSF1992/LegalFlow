@@ -5,7 +5,7 @@ portfólio. O LegalFlow reúne uma API REST construída com Laravel e uma
 aplicação web SPA em Vue 3, demonstrando operações comuns de gestão de
 clientes, processos, tarefas e documentos.
 
-**Demonstração online:** https://legalflow.lucianoferreiradev.com\
+**Demonstração online:** https://legalflow.lucianoferreiradev.com
 **Repositório:** https://github.com/LucianoSF1992/LegalFlow
 
 > **Projeto demonstrativo:** utilize somente dados fictícios. A
